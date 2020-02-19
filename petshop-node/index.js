@@ -9,10 +9,14 @@ http.createServer((req, res) => {
     let urlCompleta = url.parse(req.url, true);
     let queryString = urlCompleta.query;
     let rota = urlCompleta.pathname;
-    let novoPet = queryString;
+    let pet = queryString;
+    
     //console.log(urlCompleta);
 
     switch(rota){
+        case "/":
+            res.write(petshop.PETSHOP);
+            break;
         case "/pets":
             let conteudo = petshop.listarPet();
             if(conteudo.length > 0){
@@ -23,20 +27,26 @@ http.createServer((req, res) => {
             break;
         case "/pets/add":
             
-            if (petshop.adicionarPet(novoPet)){
-                res.write(`${novoPet.nome}, adicionado a lista`);
+            if (petshop.adicionarPet(pet)){
+                res.write(`${pet.nome}, adicionado a lista`);
             
             } else {
                 res.write("Pet nao adicionado");
             }
             break;
         case "/pets/buscar":
-            if(petshop.buscarPet(novoPet)){
-                res.write(`${novoPet.nome} Encontrado`);
+            if(petshop.buscarPet(pet)){
+                res.write(`${pet.nome} Encontrado`);
             }else{
-                res.write(`${novoPet.nome} não Encontrado`);
+                res.write(`${pet.nome} não Encontrado`);
             };
             break;
+        case "/pets/vacinar":
+            res.write(`${petshop.vacinarPet(petshop.pets)} foram vacinados!`);
+            break;
+        case "/pets/atenderpet":
+            petshop.atenderPet( )
+
         default:
             res.write("tô perdido");
     }

@@ -1,6 +1,5 @@
 const PETSHOP = "Petshop DH";
 
-console.log(`**  ${PETSHOP} **`);
 
 // arrays de objetos pets
 let pets = [{
